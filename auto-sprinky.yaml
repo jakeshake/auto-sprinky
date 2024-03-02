@@ -1,0 +1,77 @@
+blueprint:
+  name: Sprinkler Auto
+  description: Run sprinkler at specified time if no rain in next 48 hours on Openweather.com
+  domain: automation
+  input:
+    sprinkler_switch:
+      name: Sprinkler Switch
+      description: The entity ID of the sprinkler switch
+      selector:
+        entity:
+          domain: switch
+    run_time:
+      name: Run Time
+      description: The time when to run the sprinkler
+      default: "19:15:00"
+      selector:
+        time: {}
+    run_days:
+      name: Run Days
+      description: The days of the week to run the sprinkler
+      default: ['fri', 'sat', 'mon', 'wed']
+      selector:
+        multiple:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+          - sat
+          - sun
+    rain_check_hours:
+      name: Rain Check Hours
+      description: The number of hours to check for rain
+      default: 48
+      selector:
+        number:
+          min: 0
+          max: 168
+          unit_of_measurement: hours
+
+mode: single
+max_exceeded: silent
+
+trigger:
+- platform: time
+  at: !input run_time
+
+condition:
+- condition: time
+  weekday:
+    - "{{ 'mon' in run_days }}"
+    - "{{ 'tue' in run_days }}"
+    - "{{ 'wed' in run_days }}"
+    - "{{ 'thu' in run_days }}"
+    - "{{ 'fri' in run_days }}"
+    - "{{ 'sat' in run_days }}"
+    - "{{ 'sun' in run_days }}"
+- condition: and
+  conditions:
+    - condition: template
+      value_template: |2-
+        {% set p0 = state_attr('weather.openweathermap', 'forecast')[0].condition == 'rainy' %}
+        {% set p1 = state_attr('weather.openweathermap', 'forecast')[1].condition == 'rainy' %}
+        {{ 'false' if p0 or p1 else 'true' }}
+
+action:
+- service: switch.turn_on
+  target:
+    entity_id: !input sprinkler_switch
+- delay:
+    hours: 0
+    minutes: 15
+    seconds: 0
+    milliseconds: 0
+- service: switch.turn_off
+  target:
+    entity_id: !input sprinkler_switch
