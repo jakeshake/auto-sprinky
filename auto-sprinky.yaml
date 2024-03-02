@@ -1,6 +1,6 @@
 blueprint:
   name: Sprinkler Auto
-  description: Run sprinkler at specified time if no rain in next 48 hours on Openweather.com
+  description: Run sprinkler at specified time if no rain in next 48 hours on Openweathermap
   domain: automation
   input:
     sprinkler_switch:
@@ -18,16 +18,17 @@ blueprint:
     run_days:
       name: Run Days
       description: The days of the week to run the sprinkler
-      default: ['fri', 'sat', 'mon', 'wed']
+      default: ['mon', 'tue', 'wed', 'thu', 'fri']
       selector:
-        multiple:
-          - mon
-          - tue
-          - wed
-          - thu
-          - fri
-          - sat
-          - sun
+        select:
+          options:
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+            - sat
+            - sun
     rain_check_hours:
       name: Rain Check Hours
       description: The number of hours to check for rain
@@ -47,14 +48,7 @@ trigger:
 
 condition:
 - condition: time
-  weekday:
-    - "{{ 'mon' in run_days }}"
-    - "{{ 'tue' in run_days }}"
-    - "{{ 'wed' in run_days }}"
-    - "{{ 'thu' in run_days }}"
-    - "{{ 'fri' in run_days }}"
-    - "{{ 'sat' in run_days }}"
-    - "{{ 'sun' in run_days }}"
+  weekday: !input run_days
 - condition: and
   conditions:
     - condition: template
