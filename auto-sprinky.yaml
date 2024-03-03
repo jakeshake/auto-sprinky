@@ -22,13 +22,13 @@ blueprint:
       default: ['mon', 'tue', 'wed', 'thu', 'fri']
       selector:
         options:
-          - 'mon'
-          - 'tue'
-          - 'wed'
-          - 'thu'
-          - 'fri'
-          - 'sat'
-          - 'sun'
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+          - sat
+          - sun
 
     rain_check_hours:
       name: Rain Check Hours
