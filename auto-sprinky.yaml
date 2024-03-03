@@ -1,6 +1,6 @@
 blueprint:
   name: Sprinkler Auto
-  description: Run sprinkler at 7:15pm if no rain in next 48 hours
+  description: Run sprinkler at specified time if no rain in next 48 hours
   domain: automation
   input:
     sprinkler_switch:
@@ -9,21 +9,38 @@ blueprint:
       selector:
         entity:
           domain: switch
+    run_time:
+      name: Run Time
+      description: The time when to run the sprinkler
+      default: "19:15:00"
+      selector:
+        time: {}
+    run_days:
+      name: Run Days
+      description: The days of the week to run the sprinkler
+      default: ['mon', 'tue', 'wed', 'thu', 'fri']
+      selector:
+        type: select
+        multiple: true
+        options:
+          mon: Monday
+          tue: Tuesday
+          wed: Wednesday
+          thu: Thursday
+          fri: Friday
+          sat: Saturday
+          sun: Sunday
 
 mode: single
 max_exceeded: silent
 
 trigger:
   - platform: time
-    at: "19:15:00"
+    at: !input run_time
 
 condition:
   - condition: time
-    weekday:
-      - fri
-      - sat
-      - mon
-      - wed
+    weekday: !input run_days
   - condition: and
     conditions:
       - condition: template
