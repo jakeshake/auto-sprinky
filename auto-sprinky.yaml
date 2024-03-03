@@ -20,7 +20,7 @@ blueprint:
       description: The days of the week to run the sprinkler
       default: ['mon', 'tue', 'wed', 'thu', 'fri']
       selector:
-        day: {}
+        type: select
         options:
           - mon
           - tue
