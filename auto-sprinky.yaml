@@ -1,26 +1,24 @@
 blueprint:
-  name: Sprinkler Auto
-  description: Run sprinkler at specified time if no rain in next 48 hours
+  name: Scheduled Switch Control
+  description: Turn on a switch at a specified time on selected days of the week and control the duration.
   domain: automation
   input:
-    sprinkler_switch:
-      name: Sprinkler Switch
-      description: The entity ID of the sprinkler switch
+    switch_entity:
+      name: Switch Entity
+      description: The entity ID of the switch to control.
       selector:
         entity:
           domain: switch
     run_time:
       name: Run Time
-      description: The time when to run the sprinkler
-      default: "19:15:00"
+      description: The time to turn on the switch.
       selector:
         time: {}
     run_days:
       name: Run Days
-      description: The days of the week to run the sprinkler
+      description: Days of the week to run the automation.
       selector:
         type: select
-        multiple: true
         options:
           - mon
           - tue
@@ -29,8 +27,14 @@ blueprint:
           - fri
           - sat
           - sun
-
-mode: single
+        multiple: true
+    duration:
+      name: Duration
+      description: Duration for which the switch stays on.
+      default: "00:15:00"
+      selector:
+        time: {}
+mode: restart
 max_exceeded: silent
 
 trigger:
@@ -40,23 +44,12 @@ trigger:
 condition:
   - condition: time
     weekday: !input run_days
-  - condition: and
-    conditions:
-      - condition: template
-        value_template: |2-
-          {% set p0 = state_attr('weather.openweathermap', 'forecast')[0].condition == 'rainy' %}
-          {% set p1 = state_attr('weather.openweathermap', 'forecast')[1].condition == 'rainy' %}
-          {{ 'false' if p0 or p1 else 'true' }}
 
 action:
   - service: switch.turn_on
     target:
-      entity_id: !input sprinkler_switch
-  - delay:
-      hours: 0
-      minutes: 15
-      seconds: 0
-      milliseconds: 0
+      entity_id: !input switch_entity
+  - delay: !input duration
   - service: switch.turn_off
     target:
-      entity_id: !input sprinkler_switch
+      entity_id: !input switch_entity
