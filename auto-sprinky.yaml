@@ -62,9 +62,6 @@ blueprint:
       selector:
         time: {}
 
-mode: restart
-max_exceeded: silent
-
 trigger:
   - platform: time
     at: !input run_time
