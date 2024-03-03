@@ -30,6 +30,7 @@ blueprint:
           fri: Friday
           sat: Saturday
           sun: Sunday
+        multiple: true
 
     rain_check_hours:
       name: Rain Check Hours
