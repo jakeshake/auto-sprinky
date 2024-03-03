@@ -18,16 +18,6 @@ blueprint:
     run_days:
       name: Run Days
       description: Days of the week to run the automation.
-      selector:
-        select:
-          options:
-            - mon
-            - tue
-            - wed
-            - thu
-            - fri
-            - sat
-            - sun
     monday:
       name: Monday
       default: false
@@ -66,9 +56,7 @@ blueprint:
     duration:
       name: Duration
       description: Duration for which the switch stays on.
-      default: "00:15:00"
-      selector:
-        time: {}        
+      default: "00:15:00"      
     rain_check_hours:
       name: Rain Check Hours
       description: The number of hours to check for rain
