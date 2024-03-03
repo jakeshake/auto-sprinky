@@ -21,22 +21,15 @@ blueprint:
       default: ['mon', 'tue', 'wed', 'thu', 'fri']
       selector:
         type: select
-        options:
-          - label: Monday
-            value: mon
-          - label: Tuesday
-            value: tue
-          - label: Wednesday
-            value: wed
-          - label: Thursday
-            value: thu
-          - label: Friday
-            value: fri
-          - label: Saturday
-            value: sat
-          - label: Sunday
-            value: sun
         multiple: true
+        options:
+          mon: Monday
+          tue: Tuesday
+          wed: Wednesday
+          thu: Thursday
+          fri: Friday
+          sat: Saturday
+          sun: Sunday
 
 mode: single
 max_exceeded: silent
