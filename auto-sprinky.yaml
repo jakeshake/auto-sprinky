@@ -21,7 +21,7 @@ blueprint:
       default: ['fri', 'sat', 'mon', 'wed']
       selector:
         type: select
-        options:
+        multiple:
           mon: Monday
           tue: Tuesday
           wed: Wednesday
@@ -29,7 +29,6 @@ blueprint:
           fri: Friday
           sat: Saturday
           sun: Sunday
-        multiple: true
     rain_check_hours:
       name: Rain Check Hours
       description: The number of hours to check for rain
