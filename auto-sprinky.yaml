@@ -54,7 +54,6 @@ blueprint:
       default: false
       selector:
         boolean: {}
-
     duration:
       name: Duration
       description: Duration for which the switch stays on.
