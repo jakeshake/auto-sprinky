@@ -21,14 +21,6 @@ blueprint:
       default: ['mon', 'tue', 'wed', 'thu', 'fri']
       selector:
         type: list
-        options:
-          - mon
-          - tue
-          - wed
-          - thu
-          - fri
-          - sat
-          - sun
     rain_check_hours:
       name: Rain Check Hours
       description: The number of hours to check for rain
