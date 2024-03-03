@@ -18,17 +18,16 @@ blueprint:
     run_days:
       name: Run Days
       description: The days of the week to run the sprinkler
-      default: ['fri', 'sat', 'mon', 'wed']
       selector:
         type: select
         options:
-          mon: Monday
-          tue: Tuesday
-          wed: Wednesday
-          thu: Thursday
-          fri: Friday
-          sat: Saturday
-          sun: Sunday
+          - 'mon'
+          - 'tue'
+          - 'wed'
+          - 'thu'
+          - 'fri'
+          - 'sat'
+          - 'sun'
         multiple: true
     rain_check_hours:
       name: Rain Check Hours
@@ -49,14 +48,7 @@ trigger:
 
 condition:
   - condition: time
-    weekday:
-      - "{{ 'mon' in run_days }}"
-      - "{{ 'tue' in run_days }}"
-      - "{{ 'wed' in run_days }}"
-      - "{{ 'thu' in run_days }}"
-      - "{{ 'fri' in run_days }}"
-      - "{{ 'sat' in run_days }}"
-      - "{{ 'sun' in run_days }}"
+    weekday: !input run_days
   - condition: and
     conditions:
       - condition: template
