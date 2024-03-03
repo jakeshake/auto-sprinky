@@ -1,6 +1,6 @@
 blueprint:
   name: Sprinkler Auto
-  description: Run sprinkler at specified time if no rain in next 48 hours on Openweather.com
+  description: Run sprinkler at 7:15pm if no rain in next 48 hours
   domain: automation
   input:
     sprinkler_switch:
@@ -9,36 +9,21 @@ blueprint:
       selector:
         entity:
           domain: switch
-    run_time:
-      name: Run Time
-      description: The time when to run the sprinkler
-      default: "19:15:00"
-      selector:
-        time: {}
-    run_days:
-      name: Run Days
-      description: The days of the week to run the sprinkler
-      multiple: true
-    rain_check_hours:
-      name: Rain Check Hours
-      description: The number of hours to check for rain
-      default: 48
-      selector:
-        number:
-          min: 0
-          max: 168
-          unit_of_measurement: hours
 
 mode: single
 max_exceeded: silent
 
 trigger:
   - platform: time
-    at: !input run_time
+    at: "19:15:00"
 
 condition:
   - condition: time
-    weekday: !input run_days
+    weekday:
+      - fri
+      - sat
+      - mon
+      - wed
   - condition: and
     conditions:
       - condition: template
