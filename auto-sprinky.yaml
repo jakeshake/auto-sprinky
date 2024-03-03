@@ -22,17 +22,7 @@ blueprint:
       default: ['mon', 'tue', 'wed', 'thu', 'fri']
       selector:
         time:
-          min: '00:00:00'
-          max: '23:59:59'
-          step: '1'
-          options:
-            - 'mon'
-            - 'tue'
-            - 'wed'
-            - 'thu'
-            - 'fri'
-            - 'sat'
-            - 'sun'
+          type: daily
 
     rain_check_hours:
       name: Rain Check Hours
