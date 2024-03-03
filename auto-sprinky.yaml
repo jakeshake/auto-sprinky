@@ -20,6 +20,7 @@ blueprint:
       description: The days of the week to run the sprinkler
       default: ['mon', 'tue', 'wed', 'thu', 'fri']
       selector:
+        multiple: true
         options:
           - mon
           - tue
@@ -28,7 +29,6 @@ blueprint:
           - fri
           - sat
           - sun
-        multiple: true
     rain_check_hours:
       name: Rain Check Hours
       description: The number of hours to check for rain
