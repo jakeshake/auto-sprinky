@@ -20,7 +20,6 @@ blueprint:
       description: The days of the week to run the sprinkler
       default: ['mon', 'tue', 'wed', 'thu', 'fri']
       selector:
-        type: list
         multiple: true
         options:
           - mon
@@ -44,29 +43,29 @@ mode: single
 max_exceeded: silent
 
 trigger:
-- platform: time
-  at: !input run_time
+  - platform: time
+    at: !input run_time
 
 condition:
-- condition: time
-  weekday: !input run_days
-- condition: and
-  conditions:
-    - condition: template
-      value_template: |2-
-        {% set p0 = state_attr('weather.openweathermap', 'forecast')[0].condition == 'rainy' %}
-        {% set p1 = state_attr('weather.openweathermap', 'forecast')[1].condition == 'rainy' %}
-        {{ 'false' if p0 or p1 else 'true' }}
+  - condition: time
+    weekday: !input run_days
+  - condition: and
+    conditions:
+      - condition: template
+        value_template: |2-
+          {% set p0 = state_attr('weather.openweathermap', 'forecast')[0].condition == 'rainy' %}
+          {% set p1 = state_attr('weather.openweathermap', 'forecast')[1].condition == 'rainy' %}
+          {{ 'false' if p0 or p1 else 'true' }}
 
 action:
-- service: switch.turn_on
-  target:
-    entity_id: !input sprinkler_switch
-- delay:
-    hours: 0
-    minutes: 15
-    seconds: 0
-    milliseconds: 0
-- service: switch.turn_off
-  target:
-    entity_id: !input sprinkler_switch
+  - service: switch.turn_on
+    target:
+      entity_id: !input sprinkler_switch
+  - delay:
+      hours: 0
+      minutes: 15
+      seconds: 0
+      milliseconds: 0
+  - service: switch.turn_off
+    target:
+      entity_id: !input sprinkler_switch
