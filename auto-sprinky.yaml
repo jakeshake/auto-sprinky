@@ -55,24 +55,14 @@ blueprint:
       selector:
         boolean: {}
 
-variables:
-  mon: !input monday
-  tue: !input tuesday
-  wed: !input wednesday
-  thu: !input thursday
-  fri: !input friday
-  sat: !input saturday
-  sun: !input sunday
-  days: [mon, tue, wed, thu, fri, sat, sun]
-
-  duration:
-    name: Duration
-    description: Duration for which the switch stays on.
-    default: "00:15:00"
-    selector:
-      time: {}
-mode: restart
-max_exceeded: silent
+    duration:
+      name: Duration
+      description: Duration for which the switch stays on.
+      default: "00:15:00"
+      selector:
+        time: {}
+  mode: restart
+  max_exceeded: silent
 
 trigger:
   - platform: time
