@@ -12,7 +12,6 @@ blueprint:
     run_time:
       name: Run Time
       description: The time when to run the sprinkler
-      default: "19:15:00"
       selector:
         time: {}
     run_days:
@@ -55,8 +54,7 @@ blueprint:
         boolean: {}
     duration:
       name: Duration
-      description: Duration for which the switch stays on.
-      default: "00:15:00"      
+      description: Duration for which the switch stays on.    
     rain_check_hours:
       name: Rain Check Hours
       description: The number of hours to check for rain
