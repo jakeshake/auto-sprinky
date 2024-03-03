@@ -26,7 +26,6 @@ blueprint:
         - fri
         - sat
         - sun
-      multiple: true
     rain_check_hours:
       name: Rain Check Hours
       description: The number of hours to check for rain
