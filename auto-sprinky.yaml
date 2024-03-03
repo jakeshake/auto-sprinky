@@ -21,7 +21,6 @@ blueprint:
       default: ['mon', 'tue', 'wed', 'thu', 'fri']
       selector:
         type: select
-        multiple: true
         options:
           - mon
           - tue
