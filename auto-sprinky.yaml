@@ -18,9 +18,8 @@ blueprint:
     run_days:
       name: Run Days
       description: The days of the week to run the sprinkler
-      default: ['fri', 'sat', 'mon', 'wed']
       selector:
-        multiple: select
+        multiple:
           mon: Monday
           tue: Tuesday
           wed: Wednesday
